@@ -1,0 +1,7 @@
+\contentsline {section}{\numberline {1}Introducci\IeC {\'o}n}{1}
+\contentsline {section}{\numberline {2}Problema}{1}
+\contentsline {section}{\numberline {3}det(A)}{2}
+\contentsline {section}{\numberline {4}Inversa}{2}
+\contentsline {subsection}{\numberline {4.1}F\IeC {\'o}rmula}{2}
+\contentsline {subsection}{\numberline {4.2}Montante}{5}
+\contentsline {section}{\numberline {5}Bibliograf\IeC {\'\i }a}{7}

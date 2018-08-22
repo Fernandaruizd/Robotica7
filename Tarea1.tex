@@ -3,10 +3,473 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{float}
+\usepackage[usenames, dvipsnames]{color}
 \author{Fernanda Ruiz}
 \title{Matrices-Robotica}
 \begin{document}
 \tableofcontents
 \section{Introducción}
-La raiz de todo
+La matrices son ordenaciones de números dispuestos en filas y columnas. (Ayres, F. 1992) \cite{Ayres}
+\subsection*{Ing. René Mario Montante Pardo}
+Nació el 14 de septiembre de 1933. Es egresado de la Facultad de Ingeniería Mecánica y Eléctrica de la Universidad de Nuevo León. \newline Él desarrollo el Método Montante, que es un algoritmo para determinar soluciones de ecuaciones lineales, encontrar matrices de inversas, matrices de adjuntos y determinantes. El método es particular, porque se trabaja siempre con enteros, de tal manera que el resultado puede ser una fracción pero en ningún momento las cifras se redondean. La solución no es aproximada, sino exacta. \cite{Montante}
+
+\section{Problema}
+De la siguiente matriz A, obtener:
+\begin{itemize}
+\item det(A)
+\item inv(A) \(\rightarrow\) Método Joint
+\item inv(A) \(\rightarrow\) fórmula
+\end{itemize}
+A =
+$
+\left[\begin{matrix}
+6 & -3 & 1 & -3 \\
+7 & 8 & -7 &  9 \\
+\textcolor{BurntOrange}{3}& \textcolor{BurntOrange}{-1} & \textcolor{BurntOrange}{-6} & \textcolor{BurntOrange}{0} \\
+-2 & 4 & 2 & -6 \\
+\end{matrix}\right]
+$
+
+
+\section{det(A)}
+A = 3 
+$
+\left[\begin{matrix}
+\textcolor{blue}{-3} &  1 &\textcolor{Orchid}{-3} \\
+\textcolor{green}{8}  &\textcolor{blue}{-7} & \textcolor{yellow}{9} \\
+\textcolor{CarnationPink}{4}& \textcolor{green}{2}&\textcolor{blue}{-6} \\
+\textcolor{yellow}{-3} &  \textcolor{CarnationPink}{1} &\textcolor{green}{-3} \\
+\textcolor{BurntOrange}{8} & -7 & \textcolor{CarnationPink}{9} \\
+\end{matrix}\right]
+$
+- (-1) 
+$
+\left[\begin{matrix}
+\textcolor{blue}{6} &  1 &\textcolor{Orchid}{-3} \\
+\textcolor{green}{7}  &\textcolor{blue}{-7} & \textcolor{yellow}{9} \\
+\textcolor{CarnationPink}{-2}& \textcolor{green}{2}&\textcolor{blue}{-6} \\
+\textcolor{yellow}{6} &  \textcolor{CarnationPink}{1} &\textcolor{green}{-3} \\
+\textcolor{BurntOrange}{7} & -7 & \textcolor{CarnationPink}{9} \\
+\end{matrix}\right]
+$
+-6 
+$
+\left[\begin{matrix}
+\textcolor{blue}{6} & -3 &\textcolor{Orchid}{-3} \\
+\textcolor{green}{7}  &\textcolor{blue}{8} & \textcolor{yellow}{9} \\
+\textcolor{CarnationPink}{-2}& \textcolor{green}{4}&\textcolor{blue}{-6} \\
+\textcolor{yellow}{6} &  \textcolor{CarnationPink}{-3} &\textcolor{green}{-3} \\
+\textcolor{BurntOrange}{7} & 8 & \textcolor{CarnationPink}{9} \\
+\end{matrix}\right]
+$
+
+$
+3\{-3\cdot7\cdot6-8\cdot2\cdot3+4\cdot1\cdot9- 3\cdot7\cdot4+9\cdot2\cdot3+6\cdot1\cdot8\} = 3\{-120\} = -360
+$
+
+$
++1\{6\cdot7\cdot6-7\cdot2\cdot3-2\cdot1\cdot9+ 3\cdot7\cdot2-9\cdot2\cdot6-6\cdot1\cdot7\} = 168
+$
+
+$
+-6\{6\cdot8\cdot6-7\cdot4\cdot3+2\cdot3\cdot9- 3\cdot8\cdot2-9\cdot4\cdot6-6\cdot3\cdot7\} = -6\{-708\} = 4248
+$
+
+det(A) = -360 + 168 + 4248 = 4056
+
+\section{Inversa}
+\subsection{Fórmula}
+Se obtiene la minor matrix:
+\newline \newline \newline
+$
+\left[\begin{matrix}
+\begin{vmatrix} %1
+8 & -7 & 9\\
+-1 & -6 & 0\\
+4 & 2 & -6 \\
+\end{vmatrix}
+&
+\begin{vmatrix}
+7 & -7 & 9\\ %2
+3 & -6 & 0\\
+-2 & 2 & -6 \\
+\end{vmatrix}
+& 
+\begin{vmatrix}
+7 & 8 & 9\\  %3
+3 & -1 & 0\\
+-2 & 4 & -6 \\
+\end{vmatrix}
+&
+\begin{vmatrix}
+7 & 8 & -7\\  %4
+3 & -1 & -7\\
+-2 & 4 & 2 \\
+\end{vmatrix}
+\\ \\
+\begin{vmatrix}
+-3 & 1 & -3\\  %5
+-1 & -6 & 0\\
+4 & 2 & -6 \\
+\end{vmatrix}
+&
+\begin{vmatrix}
+6 & 1 & -3\\  %6
+3 & -6 & 0\\
+-2 & 2 & -6 \\
+\end{vmatrix}
+& 
+\begin{vmatrix}
+6 & -3 & -3\\  %7
+3 & -1 & 0\\
+-2 & 4 & -6 \\
+\end{vmatrix}
+&
+\begin{vmatrix}
+6 & -3 & 1\\  %8
+3 & -1 & -7\\
+-2 & 4 & 2 \\
+\end{vmatrix}
+\\ \\
+\begin{vmatrix}
+-3 & 1 & -3\\  %9
+8 & -7 & 9\\
+4 & 2 & -6 \\
+\end{vmatrix}
+&
+\begin{vmatrix}
+6 & 1 & -3\\ %10
+7 & -7 & 9\\
+-2 & 2 & -6 \\
+\end{vmatrix}
+& 
+\begin{vmatrix}
+6 & -3 & -3\\ %11
+7 & 8 & 9\\
+-2 & 4 & -6 \\
+\end{vmatrix}
+&
+\begin{vmatrix}
+6 & -3 & 1\\ %12
+7 & 8 & -7\\
+-2 & 4 & 2 \\
+\end{vmatrix}
+\\ \\
+\begin{vmatrix}
+-3 & 1 & -3\\ %13
+8 & -7 & 9\\
+-1 & -6 & 0 \\
+\end{vmatrix}
+&
+\begin{vmatrix}
+6 & 1 & -3\\ %14
+7 & -7 & 9\\
+3 & -6 & 0 \\
+\end{vmatrix}
+& 
+\begin{vmatrix}
+6 & -3 & -3\\ %15
+7 & 8 & 9\\
+3 & -1 & 0 \\
+\end{vmatrix}
+&
+\begin{vmatrix}
+6 & -3 & 1\\ %16
+7 & 8 & -7\\
+3 & -1 & -6 \\
+\end{vmatrix}
+\\
+\end{matrix}\right]
+$
+\newline
+\newline
+Procedemos a obtener los determinates de cada uno:
+\newline
+\newline
+$
+\begin{vmatrix} %1
+8 & -7 & 9\\
+-1 & -6 & 0\\
+4 & 2 & -6 \\
+\end{vmatrix}
+$
+\newline
+\newline
+$
+288 - 18 + 216 + 42 = 528 \newline
+\newline
+\begin{vmatrix} %2
+7 & -7 & 9\\
+3 & -6 & 0\\
+-2 & 2 & -6 \\
+\end{vmatrix} \newline
+\newline
+252 + 54 -108 - 126 = 72 \newline
+\newline
+\begin{vmatrix} %3
+7 & 8 & 9\\
+3 & -1 & 0\\
+-2 & 4 & -6 \\ 
+\end{vmatrix} \newline
+\newline
+42 + 108 - 18 + 144 = 276 \newline
+\newline
+\begin{vmatrix}
+7 & 8 & -7\\  %4
+3 & -1 & -7\\
+-2 & 4 & 2 \\
+\end{vmatrix} \newline
+\newline
+-14 -84 + 96 + 14 + 168 - 48 = 132
+$
+\newline
+$
+\newline
+\begin{vmatrix}
+-3 & 1 & -3\\  %5
+-1 & -6 & 0\\
+4 & 2 & -6 \\
+\end{vmatrix} \newline
+\newline
+-108 + 6 - 72 - 6 = -180 \newline
+\newline
+\begin{vmatrix}
+6 & 1 & -3\\  %6
+3 & -6 & 0\\
+-2 & 2 & -6 \\
+\end{vmatrix} \newline
+\newline
+216 - 18 + 36 + 18 = 252 \newline
+\newline
+\begin{vmatrix}
+6 & -3 & -3\\  %7
+3 & -1 & 0\\
+-2 & 4 & -6 \\
+\end{vmatrix} \newline
+\newline
+36 - 36 + 6 - 54 = -48 \newline
+\newline
+\begin{vmatrix}
+6 & -3 & 1\\  %8
+3 & -1 & -7\\
+-2 & 4 & 2 \\
+\end{vmatrix} \newline
+\newline
+-12 + 12 - 36 - 2 + 144 + 18 = 124 \newline
+$
+\newline
+$
+\begin{vmatrix}
+-3 & 1 & -3\\  %9
+8 & -7 & 9\\
+4 & 2 & -6 \\
+\end{vmatrix} \newline
+-126 - 48 + 36 - 84 + 54 + 48 = -120
+\newline
+\newline
+\begin{vmatrix}
+6 & 1 & -3\\ %10
+7 & -7 & 9\\
+-2 & 2 & -6 \\
+\end{vmatrix} \newline
+252 - 42 - 18 + 42 - 108 + 42 = 168
+\newline
+\newline
+\begin{vmatrix}
+6 & -3 & -3\\ %11
+7 & 8 & 9\\
+-2 & 4 & -6 \\
+\end{vmatrix}
+\newline
+-288 - 84 + 54 - 48 - 216 -126 = -708
+\newline
+\newline
+\begin{vmatrix}
+6 & -3 & 1\\ %12
+7 & 8 & -7\\
+-2 & 4 & 2 \\
+\end{vmatrix} \newline
+96 + 28 - 42 + 16 + 168 + 42 = 308
+$
+\newline
+\newline
+$
+\begin{vmatrix}
+-3 & 1 & -3\\ %13
+8 & -7 & 9\\
+-1 & -6 & 0 \\
+\end{vmatrix}
+\newline
+144 - 9 + 21 - 162 = - 6 \newline
+\newline
+\begin{vmatrix}
+6 & 1 & -3\\ %14
+7 & -7 & 9\\
+3 & -6 & 0 \\
+\end{vmatrix}
+\newline
+126 + 27 - 63 + 324 = 414 \newline
+\newline
+\begin{vmatrix}
+6 & -3 & -3\\ %15
+7 & 8 & 9\\
+3 & -1 & 0 \\
+\end{vmatrix}
+\newline
+21 - 81 + 72 + 54 = 66 \newline
+\newline
+\begin{vmatrix}
+6 & -3 & 1\\ %16
+7 & 8 & -7\\
+3 & -1 & -6 \\
+\end{vmatrix}
+\newline
+-288 - 7 + 63 - 24 - 42 - 126 = -424
+$
+\newline
+\newline
+A partir de ahí obtenemos la matriz de cofactores:
+\newline
+$
+\left[\begin{matrix}
+528 & -72 & 276 & -132 \\
+180 & 252 & 48 & 124\\
+-120 & -168 & -708 & -308 \\
+6 & 414 & -66 & -424\\
+\end{matrix}\right]
+$
+\newline
+\newline
+Sabemos que la adjunta es la transpuesta de la matriz de cofactores: \newline
+$
+\left[\begin{matrix}
+528 & 180 & -120 & 6 \\
+-72 & 252 & -168 & 414\\
+276 & 48 & -708 & -66 \\
+-132 & 124 & -308 & -424\\
+\end{matrix}\right]
+$
+\newline \newline
+Para obtener la inversa de la matriz A, solo hay que dividir la matriz adjunta entre el determinante: \newline \newline
+$
+\frac{1}{4056}
+\left[\begin{matrix}
+528 & 180 & -120 & 6 \\
+-72 & 252 & -168 & 414\\
+276 & 48 & -708 & -66 \\
+-132 & 124 & -308 & -424\\
+\end{matrix}\right]
+$
+\newline \newline
+\newline \newline
+$
+inv(A)=
+\left[\begin{matrix}
+\frac{528}{4056} & \frac{180}{4056} & \frac{-120}{4056} & \frac{6}{4056} \\
+\frac{-72}{4056} & \frac{252}{4056} & \frac{-168}{4056} & \frac{414}{4056}\\
+\frac{276}{4056} & \frac{48}{4056} & \frac{-708}{4056} & \frac{-66}{4056} \\
+\frac{-132}{4056} & \frac{124}{4056} & \frac{-308}{4056} & \frac{-424}{4056}\\
+\end{matrix}\right]
+$
+\newline\newline
+\newline \newline
+$
+inv(A)=
+\left[\begin{matrix}
+\frac{22}{169} & \frac{15}{338} & \frac{-5}{169} & \frac{1}{676} \\
+\frac{-3}{169} & \frac{21}{338} & \frac{-7}{169} & \frac{69}{676}\\
+\frac{23}{338} & \frac{2}{169} & \frac{-59}{338} & \frac{-11}{676} \\
+\frac{-11}{338} & \frac{31}{1014} & \frac{-77}{1014} & \frac{-53}{507}\\
+\end{matrix}\right]
+$
+\subsection{Montante}
+$
+inv(A)=
+\left[\begin{matrix}
+6 & -3 & 1 & -3 & 1 & 0 & 0 & 0 \\
+7 & 8 & -7 &  9& 0 & 1 & 0 & 0\\
+3 & -1 & -6 & 0& 0 & 0 & 1 & 0 \\
+-2 & 4 & 2 & -6 & 0 & 0 & 0 & 1\\
+\end{matrix}\right]
+$
+\newline \newline
+\newline \newline
+$
+inv(A)=
+\left[\begin{matrix}
+6 & -3 & 1 & -3 & 1 & 0 & 0 & 0 \\
+0 & 69 & -49 & 75 & -7 & 6 & 0 & 0\\
+0 & 3 & -39 & 9 & -3 & 0 & 6 & 0 \\
+0 & 18 & 14 & -42 & 2 & 0 & 0 & 6\\
+\end{matrix}\right]
+$
+\newline \newline
+\newline \newline
+$
+inv(A)=
+\left[\begin{matrix}
+69 & 0 & -13 & 3 & 8 & 3 & 0 & 0 \\
+0 & 69 & -49 & 75 & -7 & 6 & 0 & 0\\
+0 & 0 & -424 & 66 & -31 & -3 & 69 & 0 \\
+0 & 0 & 308 & -708 & 44 & -18 & 0 & 69\\
+\end{matrix}\right]
+$
+\newline \newline
+\newline \newline
+$
+inv(A)=
+\left[\begin{matrix}
+-424 & 0 & 0 & -6 & -55 & -19 & 13 & 0 \\
+0 & -424 & 0 & -414 & 21 & -39 & 49 & 0\\
+0 & 0 & -424 & 66 & -31 & -3 & 69 & 0 \\
+0 & 0 & 0 & 4056 & -132 & 124 & -308 & -424\\
+\end{matrix}\right]
+$
+\newline \newline
+\newline \newline
+$
+inv(A)=
+\left[\begin{matrix}
+4056 & 0 & 0 & 0 & 528 & 180 & 120 & 6 \\
+0 & 4056 & 0 & 0 & -72 & 252 & -168 & 414\\
+0 & 0 & 4056 & 0 & 276 & 48 & -708 & -66 \\
+0 & 0 & 0 & 4056 & -132 & 124 & -308 & -424\\
+\end{matrix}\right]
+$
+\newline \newline
+\newline \newline
+$
+inv(A)=
+\left[\begin{matrix}
+1 & 0 & 0 & 0 &\frac{528}{4056} & \frac{180}{4056} & \frac{-120}{4056} & \frac{6}{4056} \\
+0 & 1 & 0 & 0 &\frac{-72}{4056} & \frac{252}{4056} & \frac{-168}{4056} & \frac{414}{4056}\\
+0 & 0 & 1 & 0 &\frac{276}{4056} & \frac{48}{4056} & \frac{-708}{4056} & \frac{-66}{4056} \\
+0 & 0 & 0 & 1 &\frac{-132}{4056} & \frac{124}{4056} & \frac{-308}{4056} & \frac{-424}{4056}\\
+\end{matrix}\right]
+$
+\newline\newline
+\newline \newline
+$
+inv(A)=
+\left[\begin{matrix}
+1 & 0 & 0 & 0 &\frac{22}{169} & \frac{15}{338} & \frac{-5}{169} & \frac{1}{676} \\
+0 & 1 & 0 & 0 &\frac{-3}{169} & \frac{21}{338} & \frac{-7}{169} & \frac{69}{676}\\
+0 & 0 & 1 & 0 &\frac{23}{338} & \frac{2}{169} & \frac{-59}{338} & \frac{-11}{676} \\
+0 & 0 & 0 & 1 &\frac{-11}{338} & \frac{31}{1014} & \frac{-77}{1014} & \frac{-53}{507}\\
+\end{matrix}\right]
+$
+\section{Bibliografía}
+\bibliographystyle{plain}
+\begin{thebibliography}{9}
+\bibitem{Ayres}
+Ayres, F. (1992)
+\newblock {\it Matrices} México: McGraw-Hill
+
+\bibitem{Montante}
+Zavala, N. (SF)
+\newblock{\it Ing. René Mario Montante Pardo} Recuperado de {\it http://www.uanl.mx/emerito/ing-rene-mario-montante-pardo.html}
+\end{thebibliography}
 \end{document}
